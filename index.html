@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>T-Shirt Haven</title>
+
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #f5f5f5;
+}
+header {
+  background: #0a1f44;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+.hero {
+  text-align: center;
+  padding: 40px;
+  background: #ff6600;
+  color: white;
+}
+.container {
+  padding: 20px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+button {
+  background: #0a1f44;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+input, select {
+  padding: 10px;
+  margin: 5px;
+  width: 100%;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>👕 T-Shirt Haven</h1>
+  <p>Your Logo, Your Style</p>
+</header>
+
+<div class="hero">
+  <h2>Full Print & Apparel Hub</h2>
+  <p>Custom T-Shirts, Hoodies, Caps & More</p>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h3>Upload Your Design</h3>
+    <input type="file">
+    <button onclick="sendWhatsApp()">Send via WhatsApp</button>
+  </div>
+
+  <div class="card">
+    <h3>Customize Order</h3>
+
+    <label>Product</label>
+    <select id="product">
+      <option>T-Shirt</option>
+      <option>Hoodie</option>
+      <option>Cap</option>
+    </select>
+
+    <label>Size</label>
+    <select id="size">
+      <option>S</option><option>M</option><option>L</option>
+      <option>XL</option><option>2XL</option><option>3XL</option>
+    </select>
+
+    <label>Quantity</label>
+    <input type="number" id="qty" value="1" oninput="calculate()">
+
+    <p id="price"></p>
+    <h3 id="total"></h3>
+
+    <button onclick="payNow()">Pay with Paynow</button>
+  </div>
+
+  <div class="card">
+    <h3>Delivery Option</h3>
+    <select id="delivery" onchange="calculate()">
+      <option value="0">Pickup (Free)</option>
+      <option value="5">Delivery ($5)</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h3>Track Order</h3>
+    <input placeholder="Enter Order ID">
+    <button>Track</button>
+  </div>
+
+</div>
+
+<script>
+function calculate() {
+  let product = document.getElementById("product").value;
+  let qty = document.getElementById("qty").value;
+  let delivery = document.getElementById("delivery").value;
+
+  let price = 10;
+  if (product === "Hoodie") price = 20;
+  if (product === "Cap") price = 8;
+
+  if (qty >= 10) price *= 0.85;
+  else if (qty >= 5) price *= 0.9;
+
+  let total = (price * qty) + parseInt(delivery);
+
+  document.getElementById("price").innerText = "Price per item: $" + price.toFixed(2);
+  document.getElementById("total").innerText = "Total: $" + total.toFixed(2);
+}
+
+function sendWhatsApp() {
+  let msg = "Hi, I want to print a design";
+  window.open("https://wa.me/263779351821?text=" + encodeURIComponent(msg));
+}
+
+function payNow() {
+  alert("Paynow integration coming next step");
+}
+
+calculate();
+</script>
+
+</body>
+</html>
