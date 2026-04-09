@@ -132,9 +132,36 @@ function sendWhatsApp() {
   window.open("https://wa.me/263779351821?text=" + encodeURIComponent(msg));
 }
 
-function payNow() {
-  alert("Paynow integration coming next step");
+</script>
+async function payNow() {
+  let totalText = document.getElementById("total").innerText;
+  let amount = totalText.replace("Total: $", "");
+
+  try {
+    let res = await fetch("https://tshirt-backend-3cli.onrender.com/pay", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ amount })
+    });
+
+    let data = await res.text();
+
+    // Extract Paynow payment URL
+    let match = data.match(/https?:\/\/[^\s]+/);
+
+    if (match) {
+      window.location.href = match[0];
+    } else {
+      alert("Payment link error. Try again.");
+    }
+
+  } catch (err) {
+    alert("Server error. Try again.");
+  }
 }
+</script>
 
 calculate();
 </script>
