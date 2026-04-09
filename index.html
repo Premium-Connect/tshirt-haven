@@ -109,6 +109,12 @@ input, select {
 </div>
 
 <script>
+
+function sendWhatsApp() {
+  let msg = "Hi, I want to print a design";
+  window.open("https://wa.me/263779351821?text=" + encodeURIComponent(msg));
+}
+
 function calculate() {
   let product = document.getElementById("product").value;
   let qty = document.getElementById("qty").value;
@@ -123,16 +129,9 @@ function calculate() {
 
   let total = (price * qty) + parseInt(delivery);
 
-  document.getElementById("price").innerText = "Price per item: $" + price.toFixed(2);
   document.getElementById("total").innerText = "Total: $" + total.toFixed(2);
 }
 
-  { function sendWhatsApp() 
-  let msg = "Hi, I want to print a design";
-  window.open("https://wa.me/263779351821?text=" + encodeURIComponent(msg));
-}
-
-<script>
 async function payNow() {
   let totalText = document.getElementById("total").innerText;
   let amount = totalText.replace("Total: $", "");
@@ -148,7 +147,6 @@ async function payNow() {
 
     let data = await res.text();
 
-    // Extract Paynow payment URL
     let match = data.match(/https?:\/\/[^\s]+/);
 
     if (match) {
@@ -161,10 +159,8 @@ async function payNow() {
     alert("Server error. Try again.");
   }
 }
-</script>
 
+// Run on page load
 calculate();
-</script>
-
 </body>
 </html>
