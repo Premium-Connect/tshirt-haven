@@ -145,15 +145,13 @@ async function payNow() {
       body: JSON.stringify({ amount })
     });
 
-    let data = await res.text();
+   let data = await res.json();
 
-    let match = data.match(/https?:\/\/[^\s]+/);
-
-    if (match) {
-      window.location.href = match[0];
-    } else {
-      alert("Payment link error. Try again.");
-    }
+if (data.url) {
+  window.location.href = data.url;
+} else {
+  alert("Payment link error. Try again.");
+}
 
   } catch (err) {
     alert("Server error. Try again.");
